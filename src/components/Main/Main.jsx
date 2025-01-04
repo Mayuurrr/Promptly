@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Main.css';
 import { assets } from '../../assets/assets';
+import { Context } from '../../context/Context';
 
 const Main = () => {
+
+    const {prevPrompts,setPrevPrompts,onSent,setRecentPrompts,recentPrompts,showResult,loading,resultData,input,setInput} = useContext(Context)
+
     // Utility to get the current greeting
     const getGreeting = () => {
         const hour = new Date().getHours();
@@ -75,6 +79,8 @@ const Main = () => {
                     {/* Search Box */}
                     <div className="search-box">
                         <input
+                            onChange={(e)=> setInput(e.target.value)}
+                            value = {input}
                             type="text"
                             placeholder="Enter a prompt here"
                             aria-label="Prompt Input"
@@ -82,7 +88,7 @@ const Main = () => {
                         <div>
                             <img src={assets.gallery_icon} alt="Open Gallery" />
                             <img src={assets.mic_icon} alt="Start Voice Input" />
-                            <img src={assets.send_icon} alt="Send Prompt" />
+                            <img onClick= {() => onSent()} src={assets.send_icon} alt="Send Prompt" />
                         </div>
                     </div>
 
