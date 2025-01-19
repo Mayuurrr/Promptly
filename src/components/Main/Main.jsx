@@ -5,7 +5,7 @@ import { Context } from '../../context/Context';
 
 const Main = () => {
 
-    const { prevPrompts, setPrevPrompts, onSent, setRecentPrompt, recentPrompt, showResult, loading, resultData, input, setInput } = useContext(Context)
+    const { prevPrompts, setPrevPrompts, onSent, setRecentPrompt, recentPrompt, showResult, loading, resultData, input, setInput, newChat } = useContext(Context)
 
     // Utility to get the current greeting
     const getGreeting = () => {
@@ -24,7 +24,7 @@ const Main = () => {
         <div className="main">
             {/* Navigation */}
             <div className="nav">
-                <p>Promptly</p>
+                <p onClick= {()=> newChat()}>Promptly</p>
                 <img
                     src={assets.user_icon || '/default-user-icon.png'}
                     alt="User Profile Icon"
@@ -108,6 +108,11 @@ const Main = () => {
                             type="text"
                             placeholder="Enter a prompt here"
                             aria-label="Prompt Input"
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                    onSent();
+                                }
+                            }}
                         />
                         <div>
                             <img src={assets.gallery_icon} alt="Open Gallery" />
